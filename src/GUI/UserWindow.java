@@ -1,8 +1,12 @@
 package GUI;
 
+import Logic.ActionManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class UserWindow extends JFrame {
     private static final String[] groupMenuItems = new String[]{"Группа", "Создать/Открыть"};
@@ -13,12 +17,23 @@ public class UserWindow extends JFrame {
     private static final Color windowColor = new Color(175, 174, 174);
     private static final Font regularFont = new Font("Times New Roman", Font.PLAIN, 14);
     private static final Font headerFont = new Font("Times New Roman", Font.BOLD, 16);
+    private static int menuItemIndex;
+    private ActionManager actionManager;
 
     public UserWindow(String header){
         super(header);
 
+        menuItemIndex = 0;
+        actionManager = new ActionManager(32767, UserWindow.this);
+
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 800);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                actionManager.closeAll();
+            }
+        });
 
         JMenu groupMenu = createMenuItem(groupMenuItems);
         groupMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(hotKeys[0].charAt(0), KeyEvent.CTRL_DOWN_MASK));
@@ -34,18 +49,13 @@ public class UserWindow extends JFrame {
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(menuBarColor);
-
         menuBar.add(groupMenu);
         menuBar.add(editMenu);
         menuBar.add(filterMenu);
 
-        JLabel startLabel = new JLabel("<html><center>Приветствуем Вас!<br>Для работы откройте список учебной группы</center></html>", JLabel.CENTER);
-        startLabel.setFont(headerFont);
-
         Container container = getContentPane();
         container.setBackground(windowColor);
         container.add(menuBar, BorderLayout.NORTH);
-        container.add(startLabel);
 
         setVisible(true);
     }
@@ -58,6 +68,7 @@ public class UserWindow extends JFrame {
             JMenuItem item = new JMenuItem(menuItems[i]);
             item.setBackground(menuBarColor);
             item.setFont(regularFont);
+            item.addActionListener(new ActionManager(menuItemIndex++, UserWindow.this));
 
             menu.add(item);
         }
