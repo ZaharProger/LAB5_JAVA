@@ -1,8 +1,10 @@
 package Logic;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 //Группа
 public class Group {
@@ -52,9 +54,10 @@ public class Group {
     }
 
     //Вывод списка группы с учетом выбранных фильтров
-    public void print(){
+    public List<Student> applyFilters(){
         Predicate<Student> totalFilter = filters.stream().reduce(student -> true, Predicate::and);
-        students.stream().filter(totalFilter).forEach(System.out::println);
+
+        return students.stream().filter(totalFilter).collect(Collectors.toList());
     }
 
     //Проведение аттестационных работ у группы

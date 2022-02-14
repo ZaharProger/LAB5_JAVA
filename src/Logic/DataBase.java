@@ -7,6 +7,8 @@ import java.util.ArrayList;
 //БД
 public class DataBase {
     private static final String CONNECTION_ADDRESS_MASK = "jdbc:sqlite:./";
+    public static final String[] TABLE_HEADER = new String[]{"ID", "Имя", "Фамилия", "Дата рождения", "Зачет", "Дифф. зачет",
+                                                                "Экзамен", "Аттестация"};
     private Connection connection;
     private ArrayList<Student> data;
 
@@ -57,23 +59,22 @@ public class DataBase {
     }
 
     //Извлечение всех записей из БД
-    public String executeAllData(){
+    public void executeAllData(){
         data.clear();
-        String result;
+
         try (Statement statement = connection.createStatement()) {
             ResultSet executionResult = statement.executeQuery("SELECT * FROM students;");
+
             while (executionResult.next()){
                 data.add(new Student(executionResult.getInt("id"), executionResult.getString("name"), executionResult.getString("surname"),
                         executionResult.getString("birthday"), executionResult.getBoolean("test_result"), executionResult.getByte("diff_result"),
                         executionResult.getByte("exam_result")));
             }
-            result = (data.isEmpty())? "База данных пуста!" : "Чтение успешно завершено!";
-        }
-        catch (SQLException exception){
-            result = exception.getMessage();
-        }
 
-        return result;
+        }
+        catch (SQLException  | NullPointerException exception){
+            exception.printStackTrace();
+        }
     }
 
     //Добавление в БД

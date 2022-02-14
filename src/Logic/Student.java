@@ -80,4 +80,18 @@ public class Student {
     public byte getExamResult() {
         return examResult;
     }
+
+    public String[] toArrayString() {
+        StringBuilder studentInfo = new StringBuilder();
+        studentInfo.append(id).append(",")
+                .append(name).append(",")
+                .append(surname).append(",")
+                .append(birthday).append(",")
+                .append(testResult? "Да" : "Нет").append(",")
+                .append(diffTestResult).append(",")
+                .append(examResult).append(",")
+                .append(hasAttestation()? "Да" : "Нет");
+
+        return studentInfo.toString().split(",");
+    }
 }
