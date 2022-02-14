@@ -32,12 +32,25 @@ public class ActionManager implements ActionListener, Runnable {
                     run();
                 }
             }
-            case 1 -> run();
+            case 1 -> {
+                if (dataBase.getConnection() != null)
+                    run();
+                else
+                    JOptionPane.showMessageDialog(userWindow, "Вы не открыли группу", "Внимание!", JOptionPane.ERROR_MESSAGE);
+            }
+            case 4 -> {
+                if (dataBase.getConnection() != null){
+                    run();
+                    JOptionPane.showMessageDialog(userWindow, "Аттестация успешно проведена!", "Внимание!", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else
+                    JOptionPane.showMessageDialog(userWindow, "Вы не открыли группу", "Внимание!", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
     public void closeAll() {
-        JOptionPane.showMessageDialog(userWindow, dataBase.close(), "Внимание!", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(userWindow, dataBase.close(), "Внимание!", JOptionPane.WARNING_MESSAGE);
     }
 
     @Override
@@ -68,6 +81,7 @@ public class ActionManager implements ActionListener, Runnable {
 
                 UserWindow.updateTable(preparedGroup);
             }
+            case 4 -> group.examineStudents();
         }
     }
 }
