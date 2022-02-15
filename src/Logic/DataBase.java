@@ -48,7 +48,7 @@ public class DataBase {
     private void create() throws SQLException{
         try (Statement statement = connection.createStatement()){
             statement.execute("CREATE TABLE IF NOT EXISTS 'students' (" +
-                    "'id' INTEGER NOT NULL PRIMARY KEY, " +
+                    "'id' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
                     "'name' VARCHAR(50) NOT NULL, " +
                     "'surname' VARCHAR(50) NOT NULL, " +
                     "'birthday' VARCHAR(10) NOT NULL, " +
@@ -78,19 +78,15 @@ public class DataBase {
     }
 
     //Добавление в БД
-    public String addData(Student student){
-        String result;
+    public void addData(Student student){
         try (Statement statement = connection.createStatement()){
-            statement.execute(String.format("INSERT INTO students ('id', 'name', 'surname', 'birthday', 'test_result', 'diff_result', 'exam_result')" +
-                            " VALUES (%d, '%s', '%s', '%s', %d, %d, %d);", student.getId(), student.getName(), student.getSurname(), student.getBirthday(),
+            statement.execute(String.format("INSERT INTO students ('name', 'surname', 'birthday', 'test_result', 'diff_result', 'exam_result')" +
+                            " VALUES ('%s', '%s', '%s', %d, %d, %d);", student.getName(), student.getSurname(), student.getBirthday(),
                     student.getTestResult()? 1 : 0, student.getDiffTestResult(), student.getExamResult()));
-            result = String.format("Информация о студенте успешно добавлена под номером %d!", student.getId());
         }
         catch (SQLException exception){
-            result = exception.getMessage();
+            System.out.println(exception.getMessage());
         }
-
-        return result;
     }
 
     //Удаление из БД

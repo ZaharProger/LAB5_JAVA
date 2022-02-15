@@ -10,6 +10,8 @@ public class Student {
     private byte diffTestResult;
     private byte examResult;
 
+    public Student(){};
+
     public Student(int id, String name, String surname, String birthday, boolean testResult, byte diffTestResult, byte examResult){
         this.id = id;
         this.name = name;

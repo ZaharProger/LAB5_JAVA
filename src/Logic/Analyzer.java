@@ -3,7 +3,7 @@ package Logic;
 public class Analyzer {
     //Проверка даты
     public static boolean analyzeDate(String data){
-        String[] date = data.trim().split("[.]+");
+        String[] date = data.trim().split("[\\s.]+");
         boolean isCorrect;
         try{
             if (date.length == 3){//Проверка на соответствие формату дд.мм.гггг (при разбиении строки получится 3 элемента)
@@ -47,7 +47,7 @@ public class Analyzer {
 
     //Приведение даты к виду дд.мм.гггг
     public static String normalizeDate(String data){
-        String[] date = data.trim().split("[.]+");
+        String[] date = data.trim().split("[\\s.]+");
         //Установка нулевых разрядов по маске
         if (date[0].length() == 1)
             date[0] = "0" + date[0].charAt(0);

@@ -1,6 +1,6 @@
 package GUI;
 
-import Logic.ActionManager;
+import Logic.UserWindowActionManager;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -14,19 +14,19 @@ public class UserWindow extends JFrame {
     private static final String[] groupMenuItems = new String[]{"Группа", "Создать/Открыть"};
     private static final String[] editMenuItems = new String[]{"Редактировать", "Добавить студента", "Удалить студента", "Провести аттестацию"};
     private static final String[] filterMenuItems = new String[]{"Фильтры", "ID", "Зачет", "Дифф. зачет", "Экзамен", "Аттестация", "Имя", "Фамилия", "Год рождения", "Сбросить"};
-    private static final String[] hotKeys = new String[]{"O", "A", "R", "T", "E"};
+    private static final String[] hotKeys = new String[]{"O", "I", "R", "T", "E"};
     private static final Color elementsColor = new Color(231, 232, 232);
     private static final Color windowColor = new Color(175, 175, 175);
     private static final Font regularFont = new Font("Times New Roman", Font.PLAIN, 14);
     private static int menuItemIndex;
-    private ActionManager actionManager;
+    private UserWindowActionManager actionManager;
     private static JTable groupTable;
 
     public UserWindow(String header){
         super(header);
 
         menuItemIndex = 0;
-        actionManager = new ActionManager(32767, UserWindow.this);
+        actionManager = new UserWindowActionManager(32767, UserWindow.this);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1300, 800);
@@ -95,7 +95,7 @@ public class UserWindow extends JFrame {
             JMenuItem item = new JMenuItem(menuItems[i]);
             item.setBackground(elementsColor);
             item.setFont(regularFont);
-            item.addActionListener(new ActionManager(menuItemIndex++, UserWindow.this));
+            item.addActionListener(new UserWindowActionManager(menuItemIndex++, UserWindow.this));
 
             menu.add(item);
         }
