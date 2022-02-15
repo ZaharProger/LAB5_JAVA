@@ -11,10 +11,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class UserWindow extends JFrame {
-    private static final String[] groupMenuItems = new String[]{"Группа", "Создать/Открыть", "Обновить"};
+    private static final String[] groupMenuItems = new String[]{"Группа", "Создать/Открыть"};
     private static final String[] editMenuItems = new String[]{"Редактировать", "Добавить студента", "Удалить студента", "Провести аттестацию"};
     private static final String[] filterMenuItems = new String[]{"Фильтры", "ID", "Зачет", "Дифф. зачет", "Экзамен", "Аттестация", "Имя", "Фамилия", "Год рождения", "Сбросить"};
-    private static final String[] hotKeys = new String[]{"O", "U", "A", "R", "T", "E"};
+    private static final String[] hotKeys = new String[]{"O", "A", "R", "T", "E"};
     private static final Color elementsColor = new Color(231, 232, 232);
     private static final Color windowColor = new Color(175, 175, 175);
     private static final Font regularFont = new Font("Times New Roman", Font.PLAIN, 14);
@@ -39,15 +39,14 @@ public class UserWindow extends JFrame {
 
         JMenu groupMenu = createMenuItem(groupMenuItems);
         groupMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(hotKeys[0].charAt(0), KeyEvent.CTRL_DOWN_MASK));
-        groupMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(hotKeys[1].charAt(0), KeyEvent.CTRL_DOWN_MASK));
 
         JMenu editMenu = createMenuItem(editMenuItems);
-        editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(hotKeys[2].charAt(0), KeyEvent.CTRL_DOWN_MASK));
-        editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(hotKeys[3].charAt(0), KeyEvent.CTRL_DOWN_MASK));
-        editMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(hotKeys[4].charAt(0), KeyEvent.CTRL_DOWN_MASK));
+        editMenu.getItem(0).setAccelerator(KeyStroke.getKeyStroke(hotKeys[1].charAt(0), KeyEvent.CTRL_DOWN_MASK));
+        editMenu.getItem(1).setAccelerator(KeyStroke.getKeyStroke(hotKeys[2].charAt(0), KeyEvent.CTRL_DOWN_MASK));
+        editMenu.getItem(2).setAccelerator(KeyStroke.getKeyStroke(hotKeys[3].charAt(0), KeyEvent.CTRL_DOWN_MASK));
 
         JMenu filterMenu = createMenuItem(filterMenuItems);
-        filterMenu.getItem(8).setAccelerator(KeyStroke.getKeyStroke(hotKeys[5].charAt(0), KeyEvent.CTRL_DOWN_MASK));
+        filterMenu.getItem(8).setAccelerator(KeyStroke.getKeyStroke(hotKeys[4].charAt(0), KeyEvent.CTRL_DOWN_MASK));
 
         JMenuBar menuBar = new JMenuBar();
         menuBar.setBackground(elementsColor);
@@ -68,6 +67,7 @@ public class UserWindow extends JFrame {
         groupTable.setRowHeight(0, 50);
         groupTable.setRowSelectionAllowed(false);
         groupTable.setColumnSelectionAllowed(false);
+        groupTable.setCellSelectionEnabled(false);
         groupTable.setShowGrid(true);
 
         DefaultTableCellRenderer stringCellRenderer = (DefaultTableCellRenderer)groupTable.getDefaultRenderer(String.class);

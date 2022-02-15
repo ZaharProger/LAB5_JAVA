@@ -32,23 +32,24 @@ public class Group {
         try{
             switch (type) {
                 case 1 -> filters.add((student -> Integer.parseInt(key) == student.getId()));
-                case 2 -> filters.add((student -> Byte.parseByte(key) == (byte) ((student.getTestResult()) ? 1 : 0)));
+                case 2 -> filters.add((student -> key.equalsIgnoreCase((student.getTestResult()) ? "Да" : "Нет")));
                 case 3 -> filters.add((student -> Byte.parseByte(key) == student.getDiffTestResult()));
                 case 4 -> filters.add((student -> Byte.parseByte(key) == student.getExamResult()));
-                case 5 -> filters.add((student -> Byte.parseByte(key) == (byte) ((student.hasAttestation()) ? 1 : 0)));
+                case 5 -> filters.add((student -> key.equalsIgnoreCase((student.hasAttestation()) ? "Да" : "Нет")));
                 case 6 -> filters.add((student -> key.equalsIgnoreCase(student.getName())));
                 case 7 -> filters.add((student -> key.equalsIgnoreCase(student.getSurname())));
                 case 8 -> filters.add((student -> key.equals(student.getBirthday().substring(6))));
-                case 0 -> {
-                    filters.clear();
-                    filters.add(Objects::nonNull);
-                }
+                case 0 -> filters.clear();
             }
-            result = "Фильтр успешно применен!";
+
+            if (type == 1 || type == 3 || type == 4)
+                Integer.parseInt(key);
         }
         catch (NumberFormatException exception){
-            result = "Неверное значение для фильтра!";
+            filters.remove(filters.size() - 1);
         }
+
+        result = (!filters.isEmpty() && type != 0)? "Фильтр успешно применен!" : "Введите числовое значение!";
 
         return result;
     }
