@@ -9,8 +9,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class NewStudentWindow extends JFrame {
-    private static final Color elementsColor = new Color(231, 232, 232);
-    private static final Color windowColor = new Color(175, 175, 175);
+    private static final Color elementsColor = new Color(255, 255, 255);
+    private static final Color windowColor = new Color(238, 238, 238);
     private static final Font regularFont = new Font("Times New Roman", Font.PLAIN, 16);
     private static final Font headerFont = new Font("Times New Roman", Font.BOLD, 16);
     private NewStudentWindowActionManager actionManager;
