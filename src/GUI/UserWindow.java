@@ -54,10 +54,6 @@ public class UserWindow extends JFrame {
         menuBar.add(editMenu);
         menuBar.add(filterMenu);
 
-        JScrollBar scrollbar = new JScrollBar();
-        scrollbar.setBackground(elementsColor);
-        scrollbar.setSize(50, 800);
-
         groupTable = new JTable(0, 0);
         groupTable.setFont(regularFont);
         groupTable.setOpaque(false);
@@ -69,6 +65,13 @@ public class UserWindow extends JFrame {
         groupTable.setColumnSelectionAllowed(false);
         groupTable.setCellSelectionEnabled(false);
         groupTable.setShowGrid(true);
+        groupTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        groupTable.setPreferredSize(new Dimension(1300, 800));
+
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setViewportView(groupTable);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         DefaultTableCellRenderer stringCellRenderer = (DefaultTableCellRenderer)groupTable.getDefaultRenderer(String.class);
         stringCellRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,8 +84,7 @@ public class UserWindow extends JFrame {
         Container container = getContentPane();
         container.setBackground(windowColor);
         container.add(menuBar, BorderLayout.NORTH);
-        container.add(groupTable, BorderLayout.CENTER);
-        container.add(scrollbar, BorderLayout.EAST);
+        container.add(scrollPane, BorderLayout.CENTER);
 
         setVisible(true);
     }
